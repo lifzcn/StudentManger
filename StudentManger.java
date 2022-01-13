@@ -7,11 +7,7 @@
 
 package StudentManger;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class StudentManger {
     public static void main(String[] args) {
@@ -46,7 +42,7 @@ public class StudentManger {
                     updateStudent(array);
                     break;
                 case "5":
-                    System.out.println("感谢使用本系统");
+                    System.out.println("感谢使用本系统!");
                     System.exit(0);
             }
         }
@@ -56,22 +52,35 @@ public class StudentManger {
         Scanner sc = new Scanner(System.in);
         System.out.println("请输入学生学号:");
         String sid = sc.nextLine();
-        System.out.println("请输入学生姓名:");
-        String name = sc.nextLine();
-        System.out.println("请输入学生年龄:");
-        String age = sc.nextLine();
-        System.out.println("请输入学生地址:");
-        String address = sc.nextLine();
+        int sid_length = sid.length();
+        for (int i = 0; i < array.size(); i++) {
+            Student s = array.get(i);
+            if (s.getSid().equals(sid)) {
+                System.out.println("系统中已经存在该学号对应学生的信息,请检查后重试!");
+                return;
+            } else break;
+        }
+        if (sid_length == 10) {
+            System.out.println("请输入学生姓名:");
+            String name = sc.nextLine();
+            System.out.println("请输入学生年龄:");
+            String age = sc.nextLine();
+            System.out.println("请输入学生地址:");
+            String address = sc.nextLine();
 
-        Student s = new Student();
-        s.setSid(sid);
-        s.setName(name);
-        s.setAge(age);
-        s.setAddress(address);
+            Student s = new Student();
+            s.setSid(sid);
+            s.setName(name);
+            s.setAge(age);
+            s.setAddress(address);
 
-        array.add(s);
+            array.add(s);
 
-        System.out.println("添加学生信息成功");
+            System.out.println("添加学生信息成功");
+        } else {
+            System.out.println("您输入的学号位数格式不正确,请检查后重试!");
+            return;
+        }
     }
 
     public static void findAllStudent(ArrayList<Student> array) {
@@ -121,6 +130,9 @@ public class StudentManger {
             Student s = array.get(i);
             if (s.getSid().equals(sid)) {
                 array.remove(i);
+                break;
+            } else {
+                System.out.println("没有对应学号的学生信息,删除失败,请检查后重试!");
                 break;
             }
         }
