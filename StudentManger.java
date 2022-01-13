@@ -1,4 +1,13 @@
+/**
+ * @File : StudentManger
+ * @Discription :
+ * @Author : Leonard
+ * @Time : 2022/1/13
+ **/
+
 package StudentManger;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +27,8 @@ public class StudentManger {
             System.out.println("请输入您的选择:");
             System.out.println("=======================================");
             Scanner sc = new Scanner(System.in);
-            String number = sc.nextLine();
-            switch (number) {
+            String mode_1 = sc.nextLine();
+            switch (mode_1) {
                 case "1":
 //                    System.out.println("添加学生信息");
                     addStudent(array);
@@ -30,9 +39,11 @@ public class StudentManger {
                     break;
                 case "3":
 //                    System.out.println("删除学生信息");
+                    deleteStudent(array);
                     break;
                 case "4":
 //                    System.out.println("更新学生信息");
+                    updateStudent(array);
                     break;
                 case "5":
                     System.out.println("感谢使用本系统");
@@ -64,16 +75,77 @@ public class StudentManger {
     }
 
     public static void findAllStudent(ArrayList<Student> array) {
-        System.out.println("学号\t\t姓名\t\t年龄\t\t地址");
-        for (int i = 0; i < array.size(); i++) {
-            Student s = array.get(i);
-            System.out.println(s.getSid() + "\t" + s.getName() + "\t\t" + s.getAge() + "岁\t\t" + s.getAddress());
+        Scanner sc = new Scanner(System.in);
+        System.out.println("[1] 查询全部学生信息");
+        System.out.println("[2] 查询个别学生信息");
+        System.out.println("请输入您的选择:");
+        String mode_2 = sc.nextLine();
+        switch (mode_2) {
+            case "1":
+                if (array.size() == 0) {
+                    System.out.println("无学生信息,请检查后重试!");
+                    //此处添加的return语句所起的作用等同于后面的else语句
+//                    return;
+                } else {
+                    System.out.println("学号\t\t姓名\t\t年龄\t\t地址");
+                    for (int i = 0; i < array.size(); i++) {
+                        Student s = array.get(i);
+                        System.out.println(s.getSid() + "\t" + s.getName() + "\t\t" + s.getAge() + "岁\t\t" + s.getAddress());
+                    }
+                }
+                break;
+            case "2":
+                if (array.size() == 0) System.out.println("无学生信息,请检查后重试!");
+                else {
+//                    Scanner sc = new Scanner(System.in);
+                    System.out.println("请输入要查询的学生学号:");
+                    String sid = sc.nextLine();
+                    for (int i = 0; i < array.size(); i++) {
+                        Student s = array.get(i);
+                        if (s.getSid().equals(sid)) {
+                            System.out.println("学号\t\t姓名\t\t年龄\t\t地址");
+                            System.out.println(s.getSid() + "\t" + s.getName() + "\t\t" + s.getAge() + "岁\t\t" + s.getAddress());
+                            break;
+                        }
+                    }
+                }
+                break;
         }
     }
 
-    public static void deleteStudent() {
+    public static void deleteStudent(ArrayList<Student> array) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("请输入要删除的学生学号:");
+        String sid = sc.nextLine();
+        for (int i = 0; i < array.size(); i++) {
+            Student s = array.get(i);
+            if (s.getSid().equals(sid)) {
+                array.remove(i);
+                break;
+            }
+        }
+        System.out.println("删除学生信息成功!");
     }
 
-    public static void updateStudent() {
+    public static void updateStudent(ArrayList<Student> array) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("请输入要更新的学生学号:");
+        String sid = sc.nextLine();
+        for (int i = 0; i < array.size(); i++) {
+            Student s = array.get(i);
+            if (s.getSid().equals(sid)) {
+                System.out.println("请输入要更新的学生姓名:");
+                String name = sc.nextLine();
+                s.setName(name);
+                System.out.println("请输入要更新的学生年龄:");
+                String age = sc.nextLine();
+                s.setAge(age);
+                System.out.println("请输入要更新的学生地址:");
+                String address = sc.nextLine();
+                s.setAddress(address);
+            } else {
+                System.out.println("没有找到对应学号学生信息,请检查后重试!");
+            }
+        }
     }
 }
