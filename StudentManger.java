@@ -7,43 +7,59 @@
 
 package StudentManger;
 
+import java.awt.*;
 import java.util.*;
 
 public class StudentManger {
     public static void main(String[] args) {
         ArrayList<Student> array = new ArrayList<Student>();
-        while (true) {
-
-            System.out.println("==========欢迎访问学生管理系统==========");
-            System.out.println("[1] 添加学生信息");
-            System.out.println("[2] 查找学生信息");
-            System.out.println("[3] 删除学生信息");
-            System.out.println("[4] 更新学生信息");
-            System.out.println("[5] 退出系统");
-            System.out.println("请输入您的选择:");
-            System.out.println("=======================================");
+        String username = "Leonard";
+        String password = "LeoLee091800";
+        for (int i = 0; i < 3; i++) {
             Scanner sc = new Scanner(System.in);
-            String mode_1 = sc.nextLine();
-            switch (mode_1) {
-                case "1":
+            System.out.println("请输入用户名:");
+            String name = sc.nextLine();
+            System.out.println("请输入密码:");
+            String passwd = sc.nextLine();
+            if (name.equals(username) && passwd.equals(password)) {
+                System.out.println("登录成功,欢迎使用本系统!");
+                while (true) {
+                    System.out.println("==========欢迎访问学生管理系统==========");
+                    System.out.println("[1] 添加学生信息");
+                    System.out.println("[2] 查找学生信息");
+                    System.out.println("[3] 删除学生信息");
+                    System.out.println("[4] 更新学生信息");
+                    System.out.println("[5] 退出系统");
+                    System.out.println("请输入您的选择:");
+                    System.out.println("=======================================");
+//                    Scanner sc = new Scanner(System.in);
+                    String mode_1 = sc.nextLine();
+                    switch (mode_1) {
+                        case "1":
 //                    System.out.println("添加学生信息");
-                    addStudent(array);
-                    break;
-                case "2":
+                            addStudent(array);
+                            break;
+                        case "2":
 //                    System.out.println("查找学生信息");
-                    findAllStudent(array);
-                    break;
-                case "3":
+                            findAllStudent(array);
+                            break;
+                        case "3":
 //                    System.out.println("删除学生信息");
-                    deleteStudent(array);
-                    break;
-                case "4":
+                            deleteStudent(array);
+                            break;
+                        case "4":
 //                    System.out.println("更新学生信息");
-                    updateStudent(array);
-                    break;
-                case "5":
-                    System.out.println("感谢使用本系统!");
-                    System.exit(0);
+                            updateStudent(array);
+                            break;
+                        case "5":
+                            System.out.println("感谢使用本系统!");
+                            System.exit(0);
+                    }
+                }
+//                break;
+            } else {
+                if (2 - i == 0) System.out.println("您的账户已被锁定,请联系管理员进行解锁");
+                else System.out.println("用户名或密码错误,您还有" + (2 - i) + "次机会");
             }
         }
     }
